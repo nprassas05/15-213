@@ -140,7 +140,7 @@ NOTES:
  *   Rating: 1
  */
 int bitOr(int x, int y) {
-  return 2;
+    return ~(~x & ~y);
 }
 /* 
  * specialBits - return bit pattern 0xffca3fff
@@ -149,13 +149,12 @@ int bitOr(int x, int y) {
  *   Rating: 1
  */
 int specialBits(void) {
-
-
-
-
+    // ca0 = 1100 1010 0000 = 0xca << 4
+    // ca3 = 1100 1010 0011
+    // ~((ca << 4) + 3) << 12
     return 2;
-
 }
+
 //2
 /*
  * isZero - returns 1 if x == 0, and 0 otherwise 
@@ -165,8 +164,9 @@ int specialBits(void) {
  *   Rating: 1
  */
 int isZero(int x) {
-  return 2;
+    return !x;
 }
+
 /* 
  * anyEvenBit - return 1 if any even-numbered bit in word set to 1
  *   Examples anyEvenBit(0xA) = 0, anyEvenBit(0xE) = 1
@@ -175,6 +175,8 @@ int isZero(int x) {
  *   Rating: 2
  */
 int anyEvenBit(int x) {
+    // 0xA = 1010
+    // 0xE = 1110
   return 2;
 }
 /* 
@@ -185,8 +187,9 @@ int anyEvenBit(int x) {
  *   Rating: 2
  */
 int negate(int x) {
-  return 2;
+    return (~x) + 1;
 }
+
 /* 
  * leastBitPos - return a mask that marks the position of the
  *               least significant 1 bit. If x == 0, return 0
@@ -196,6 +199,7 @@ int negate(int x) {
  *   Rating: 2 
  */
 int leastBitPos(int x) {
+  // 96 = 64 + 32 = 2^6 + 2^5 = 1100000
   return 2;
 }
 //3
