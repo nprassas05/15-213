@@ -149,10 +149,7 @@ int bitOr(int x, int y) {
  *   Rating: 1
  */
 int specialBits(void) {
-    // ca0 = 1100 1010 0000 = 0xca << 4
-    // ca3 = 1100 1010 0011
-    // ~((ca << 4) + 3) << 12
-    return 2;
+    return ~(0xd7 << 14);
 }
 
 //2
@@ -175,10 +172,16 @@ int isZero(int x) {
  *   Rating: 2
  */
 int anyEvenBit(int x) {
-    // 0xA = 1010
-    // 0xE = 1110
-  return 2;
+    int m = 0xaa;
+    m = m | x;
+    m = m | (x >> 8);
+    m = m | (x >> 16);
+    m = m | (x >> 24);
+    
+    m = m & (0x55);
+    return !(!m); 
 }
+
 /* 
  * negate - return -x 
  *   Example: negate(1) = -1.
