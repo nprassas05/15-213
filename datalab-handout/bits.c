@@ -215,7 +215,11 @@ int leastBitPos(int x) {
  *   Rating: 3 
  */
 int rotateLeft(int x, int n) {
-  return 2;
+    int negativeN = (~n) + 1;
+    int wrapAroundBits = x >> (32 + negativeN);
+    int maskForWrapAroundBits = ~((~0) << n);
+    wrapAroundBits &= maskForWrapAroundBits;
+    return (x << n) + wrapAroundBits;
 }
 /* 
  * divpwr2 - Compute x/(2^n), for 0 <= n <= 30
