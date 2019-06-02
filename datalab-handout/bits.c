@@ -202,8 +202,24 @@ int negate(int x) {
  *   Rating: 2 
  */
 int leastBitPos(int x) {
-  // 96 = 64 + 32 = 2^6 + 2^5 = 1100000
-  return 2;
+    /* intuition; let the position of the least significant 1 bit be i.
+       Then we know bits 0 ... (i - 1) are all zero
+       Let c = the complement of x 
+       in c, bits 0 ... (i - 1) will be all 1 and bit i will be zero.
+       if we add 1 to c, bits 0 ... (i - 1) will all become 0 again and
+       bit i will become 1.
+       Now lets compare three section of bits in x and c:
+       bits 0 through i - 1: these are all 0 in both x and c
+       bit i: this bit is now 1 in both x and c
+       bits i + 1 through 31: x and c will have opposite bit values for all
+       these bits.
+       
+       Therefore x & c will give us all zeros except at bit i, which is what
+       we want.
+       
+       We can prove that this works when x = 0 as well.
+    */ 
+    return x & ((~x) + 1);
 }
 //3
 /* 
@@ -216,7 +232,7 @@ int leastBitPos(int x) {
  */
 int rotateLeft(int x, int n) {
     int negativeN = (~n) + 1;
-    int wrapAroundBits = x >> (32 + negativeN);
+    int wrapAroundBits = x >> (32 + negativeN); // shift right by 32 - n
     int maskForWrapAroundBits = ~((~0) << n);
     wrapAroundBits &= maskForWrapAroundBits;
     return (x << n) + wrapAroundBits;
