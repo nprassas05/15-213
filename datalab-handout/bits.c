@@ -256,7 +256,20 @@ int divpwr2(int x, int n) {
  *   Rating: 3
  */
 int isLess(int x, int y) {
-  return 2;
+    int tMin = 1 << 31;
+    int maskCancelMSB = ~tMin;
+    int xWithoutMSB = x & maskCancelMSB;
+    int yWithoutMSB = y & maskCancelMSB;
+
+    int xMSB = 1 & (x >> 31);
+    int yMSB = 1 & (y >> 31);
+
+    int diffWithoutMSB = xWithoutMSB + ((~yWithoutMSB) + 1);
+    int diffWithoutMSBIsNeg = ((diffWithoutMSB & tMin) >> 31) & 1;
+    int differentSignBit = xMSB ^ yMSB;
+
+    return (differentSignBit & xMSB) |
+        ((!differentSignBit & diffWithoutMSBIsNeg));
 }
 //4
 /*
