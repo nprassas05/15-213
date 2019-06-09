@@ -246,6 +246,7 @@ int rotateLeft(int x, int n) {
  *   Rating: 2
  */
 int divpwr2(int x, int n) {
+    //return (x + (1 << n) - 1) >> n;
     return 2;
 }
 /* 
@@ -281,7 +282,9 @@ int isLess(int x, int y) {
  *   Rating: 4
  */
 int isPower2(int x) {
-  return 2;
+    int leastBitPos =  x & ((~x) + 1);
+    return (!(leastBitPos ^ x)) &
+           (!!x) & (!(1 & (x >> 31)));
 }
 /*
  * bitReverse - Reverse bits in a 32-bit word
