@@ -246,9 +246,15 @@ int rotateLeft(int x, int n) {
  *   Rating: 2
  */
 int divpwr2(int x, int n) {
-    //return (x + (1 << n) - 1) >> n;
-    return 2;
+    int negative1 = ~0;
+
+    /* mask1 will evaluate to either n or 0 depending on
+       if x is a negative or non-negative number.
+    */
+    int mask1 = (x >> 31) & n;
+    return  (x + (1 << mask1) + negative1) >> n;
 }
+
 /* 
  * isLess - if x < y  then return 1, else return 0 
  *   Example: isLess(4,5) = 1.
